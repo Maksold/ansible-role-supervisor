@@ -29,12 +29,16 @@ supervisor_programs: []
 supervisor_nodaemon: false
 
 supervisor_log_dir: /var/log/supervisor
+supervisor_logfile: /var/log/supervisord.log
+supervisor_loglevel: info
 
 supervisor_user: root
 supervisor_password: 'my_secret_password'
 
 supervisor_unix_http_server_enable: true
 supervisor_unix_http_server_socket_path: /var/run/supervisor.sock
+supervisor_unix_http_server_chown_owner: root
+supervisor_unix_http_server_chown_group: root
 supervisor_unix_http_server_password_protect: true
 
 supervisor_inet_http_server_enable: false
