@@ -36,7 +36,8 @@ supervisor_user: root
 supervisor_password: 'my_secret_password'
 
 supervisor_unix_http_server_enable: true
-supervisor_unix_http_server_socket_path: /var/run/supervisor.sock
+supervisor_unix_http_server_socket_base_dir: /var/run/supervisor
+supervisor_unix_http_server_socket_path: "{{ supervisor_unix_http_server_socket_base_dir }}/supervisor.sock"
 supervisor_unix_http_server_chown_owner: root
 supervisor_unix_http_server_chown_group: root
 supervisor_unix_http_server_password_protect: true

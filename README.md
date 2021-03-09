@@ -29,7 +29,7 @@ The path where Supervisor configuration should be stored.
       - name: 'foo'
         command: /bin/cat
         state: present
-    
+
       - name: 'apache'
         command: apache2ctl -DFOREGROUND
         state: present
@@ -66,7 +66,7 @@ The user under which `supervisord` will be run, and the password to be used when
 Password protection can be turned off for Unix HTTP and Inet HTTP by setting these variables to `false`, This would disable password protection for `supervisorctl` as well.
 
     supervisor_unix_http_server_enable: true
-    supervisor_unix_http_server_socket_path: /var/run/supervisor.sock
+    supervisor_unix_http_server_socket_path: /var/run/supervisor/supervisor.sock
 
 Whether to enable the UNIX socket-based HTTP server, and the socket file to use if enabled.
 

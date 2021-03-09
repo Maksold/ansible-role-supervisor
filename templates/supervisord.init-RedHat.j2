@@ -41,7 +41,7 @@ fi
 supervisorctl=/usr/bin/supervisorctl
 supervisord=${SUPERVISORD-{{ supervisor_bin_path }}}
 prog=supervisord
-pidfile=${PIDFILE-/var/run/supervisord.pid}
+pidfile=${PIDFILE-{{supervisor_unix_http_server_socket_base_dir}}/supervisord.pid}
 lockfile=${LOCKFILE-/var/lock/subsys/supervisord}
 STOP_TIMEOUT=${STOP_TIMEOUT-60}
 OPTIONS="${OPTIONS--c {{ supervisor_config_path }}/supervisord.conf}"

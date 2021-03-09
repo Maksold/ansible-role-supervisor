@@ -36,6 +36,15 @@
     group: "{{ supervisor_user }}"
     state: file
 
+- name: Ensure Supervisor directory for socket and pid files is present.
+  file:
+    path: "{{ supervisor_unix_http_server_socket_base_dir }}"
+    owner: "{{ supervisor_unix_http_server_chown_owner }}"
+    group: "{{ supervisor_unix_http_server_chown_group }}"
+    mode: 0755
+    state: directory
+  when: supervisor_unix_http_server_enable and (supervisor_unix_http_server_chown_owner != 'root' or supervisor_unix_http_server_chown_group != 'root')
+
 - name: Ensure Supervisor socket file is present.
   file:
     path: "{{ supervisor_unix_http_server_socket_path }}"
