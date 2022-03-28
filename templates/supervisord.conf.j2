@@ -5,6 +5,7 @@ user = {{ supervisor_user }}
 pidfile = {{ supervisor_unix_http_server_socket_base_dir }}/supervisord.pid
 logfile = {{ supervisor_logfile }}
 loglevel = {{ supervisor_loglevel }}
+logfile_maxbytes = {{ supervisor_log_maxbytes }}
 
 {% if supervisor_unix_http_server_enable %}
 [unix_http_server]

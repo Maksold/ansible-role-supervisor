@@ -31,6 +31,7 @@ supervisor_nodaemon: false
 supervisor_log_dir: /var/log/supervisor
 supervisor_logfile: /var/log/supervisord.log
 supervisor_loglevel: info
+supervisor_log_maxbytes: 0
 
 supervisor_user: root
 supervisor_password: 'my_secret_password'
