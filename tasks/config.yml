@@ -29,12 +29,18 @@
   loop: "{{ supervisor_programs }}"
   notify: restart supervisor
 
-- name: Ensure Supervisor log file is present.
+- name: Check if Supervisor log file already exists.
+  stat:
+    path: "{{ supervisor_logfile }}"
+  register: supervisor_logfile_result
+
+- name: Create Supervisor log file.
   file:
     path: "{{ supervisor_logfile }}"
     owner: "{{ supervisor_user }}"
     group: "{{ supervisor_user }}"
-    state: file
+    state: touch
+  when: not supervisor_logfile_result.stat.exists
 
 - name: Ensure Supervisor directory for socket and pid files is present.
   file:
@@ -45,13 +51,18 @@
     state: directory
   when: supervisor_unix_http_server_enable and (supervisor_unix_http_server_chown_owner != 'root' or supervisor_unix_http_server_chown_group != 'root')
 
-- name: Ensure Supervisor socket file is present.
+- name: Check if Supervisor socket file already exists.
+  stat:
+    path: "{{ supervisor_unix_http_server_socket_path }}"
+  register: supervisor_socket_file_result
+
+- name: Create Supervisor socket file.
   file:
     path: "{{ supervisor_unix_http_server_socket_path }}"
     owner: "{{ supervisor_unix_http_server_chown_owner }}"
     group: "{{ supervisor_unix_http_server_chown_group }}"
-    state: file
-  when: supervisor_unix_http_server_enable and (supervisor_unix_http_server_chown_owner != 'root' or supervisor_unix_http_server_chown_group != 'root')
+    state: touch
+  when: not supervisor_socket_file_result.stat.exists and supervisor_unix_http_server_enable and (supervisor_unix_http_server_chown_owner != 'root' or supervisor_unix_http_server_chown_group != 'root')
 
 - name: Ensure unwanted Supervisor program configs are absent
   file:
