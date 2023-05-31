@@ -51,6 +51,21 @@
     state: directory
   when: supervisor_unix_http_server_enable and (supervisor_unix_http_server_chown_owner != 'root' or supervisor_unix_http_server_chown_group != 'root')
 
+- name: Ensure systemd tmpfiles.d configuration is present for socket and pid files directory.
+  template:
+    src: tmpfiles.conf.j2
+    dest: /etc/tmpfiles.d/supervisord.conf
+    mode: 0644
+  when:
+    - supervisor_unix_http_server_enable and (supervisor_unix_http_server_chown_owner != 'root' or supervisor_unix_http_server_chown_group != 'root')
+    - (supervisor_unix_http_server_socket_base_dir|dirname).startswith('/var/run') or (supervisor_unix_http_server_socket_base_dir|dirname).startswith('/run')
+    - ansible_service_mgr|default() == 'systemd'
+
+- name: Reload systemd daemon
+  command: systemctl daemon-reload
+  when:
+    - ansible_service_mgr|default() == "systemd"
+
 - name: Check if Supervisor socket file already exists.
   stat:
     path: "{{ supervisor_unix_http_server_socket_path }}"
