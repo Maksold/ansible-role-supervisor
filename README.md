@@ -1,6 +1,6 @@
 # Ansible Role: Supervisor
 
-[![CI](https://github.com/geerlingguy/ansible-role-supervisor/workflows/CI/badge.svg?event=push)](https://github.com/geerlingguy/ansible-role-supervisor/actions?query=workflow%3ACI)
+[![CI](https://github.com/geerlingguy/ansible-role-supervisor/actions/workflows/ci.yml/badge.svg)](https://github.com/geerlingguy/ansible-role-supervisor/actions/workflows/ci.yml)
 
 An Ansible Role that installs [Supervisor](http://supervisord.org/) on Linux.
 
@@ -24,6 +24,10 @@ Choose whether to use an init script or systemd unit configuration to start Supe
     supervisor_config_path: /etc/supervisor
 
 The path where Supervisor configuration should be stored.
+
+    supervisor_include_files: '{{ supervisor_config_path }}/conf.d/*.conf'
+
+The `files` supervisor will include from the main supervisor configuration.
 
     supervisor_programs:
       - name: 'foo'

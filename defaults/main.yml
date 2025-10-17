@@ -8,6 +8,7 @@ supervisor_started: true
 supervisor_enabled: true
 
 supervisor_config_path: /etc/supervisor
+supervisor_include_files: '{{ supervisor_config_path }}/conf.d/*.conf'
 
 # A list of `program`s Supervisor will control. Example commented out below.
 supervisor_programs: []
